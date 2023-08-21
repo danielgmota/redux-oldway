@@ -1,15 +1,21 @@
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 
-function App({ count, increment, incrementAmount }) {
+// function App({ count, increment, incrementAmount }) {
+function App() {
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+
   function handleOnclick() {
-    increment();
+    //   increment();
+    dispatch({ type: "counter/increment" });
   }
 
   function handleOnclickAmount() {
-    incrementAmount(5);
+    //   incrementAmount(5);
+    dispatch({ type: "counter/incrementAmount", payload: 5 });
   }
 
   return (
@@ -37,18 +43,21 @@ function App({ count, increment, incrementAmount }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    count: state.counter.value,
-  };
-};
+export default App;
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    increment: () => dispatch({ type: "counter/increment" }),
-    incrementAmount: (amount) =>
-      dispatch({ type: "counter/incrementAmount", payload: amount }),
-  };
-};
+// Old method
+// const mapStateToProps = (state) => {
+//   return {
+//     count: state.counter.value,
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     increment: () => dispatch({ type: "counter/increment" }),
+//     incrementAmount: (amount) =>
+//       dispatch({ type: "counter/incrementAmount", payload: amount }),
+//   };
+// };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
